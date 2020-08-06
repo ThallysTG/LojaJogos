@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+<ui:composition template="inicio.xhtml">
+<ui:define name="conteudo">
+
+	<h:messages 
+		errorStyle="color:red" 
+		warnStyle="color:orange" 
+		infoStyle="color:green"
+		globalOnly="false"/>
+		
+	<h1>.:Cadastro de Jogos:.</h1>
+	<h:form>
+		<h:panelGrid columns="2">
+			<h:outputLabel value="Descrição:" />
+			<h:panelGroup>
+				<h:inputText 
+					id="itDescricao" 
+					value="#{jogosController.entity.descricao}" />
+				<h:message for="itDescricao" style="color:red"/>
+			</h:panelGroup>
+			
+			<h:outputLabel value="Console:" />			
+			<h:panelGroup>
+				<h:inputText 
+					id="itConsole" 
+					value="#{jogosController.entity.console}" />
+				<h:message for="itConsole" style="color:red"/>
+			</h:panelGroup>
+
+			<h:outputLabel value="Preço:" />
+			<h:panelGroup>
+				<h:inputText 
+					id="itPreco" 
+					value="#{jogosController.entity.preco}" />
+				<h:message for="itPreco" style="color:red"/>
+			</h:panelGroup>
+			
+			<h:outputLabel value="Estoque:" />			
+			<h:panelGroup>
+				<h:inputText 
+					id="itEstoque" 
+					value="#{jogosController.entity.estoque}" />
+				<h:message for="itEstoque" style="color:red"/>
+			</h:panelGroup>									
+
+		
+		</h:panelGrid>
+		<h:commandButton value="Incluir"
+			disabled="#{jogosController.entity.id != null}"
+			actionListener="#{jogosController.incluir}" />
+		<h:commandButton value="Alterar"
+			disabled="#{jogosController.entity.id == null}"
+			actionListener="#{jogosController.alterar}" />
+		<h:commandButton value="Excluir"
+			disabled="#{jogosController.entity.id == null}"
+			actionListener="#{jogosController.remover}" >
+			<f:ajax execute="@this" render="@form formDataTable"/>
+		</h:commandButton>
+		<h:commandButton value="Limpar" 
+			actionListener="#{jogosController.limpar}">
+			<f:ajax execute="@this" render="@form"/>
+		</h:commandButton>		
+	</h:form>
+</ui:define>
+</ui:composition>
+</html>

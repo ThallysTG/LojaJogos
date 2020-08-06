@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+<ui:composition template="inicio.xhtml">
+<ui:define name="conteudo">
+<center>
+	<h:messages 
+		errorStyle="color:red" 
+		warnStyle="color:orange" 
+		infoStyle="color:green"
+		globalOnly="false"/>
+		
+	<h1>Consulta de Jogos</h1>
+	<h:form>
+		<h:panelGrid columns="4">
+			<h:selectOneMenu value="#{consultaJogosController.tipoFiltro}">
+			   <f:selectItem itemValue="1" itemLabel="Descrição" />
+			   <f:selectItem itemValue="2" itemLabel="Console" />                   
+			</h:selectOneMenu>
+			<h:panelGroup>
+				<h:inputText 
+					value="#{consultaJogosController.filtro}" />
+			</h:panelGroup>
+			<h:commandButton value="Pesquisar"
+				actionListener="#{consultaJogosController.pesquisar}" />
+			<h:commandButton value="+ Novo Jogo"
+				action="#{consultaJogosController.novoJogos}" />
+		
+		</h:panelGrid>
+			
+	</h:form>
+	<h:form id="formDataTable">
+		<h:dataTable id="dataTable" value="#{consultaJogosController.listaJogos}" 
+					 var="obj">
+			   <h:column>
+			      <f:facet name="header">Descrição</f:facet>
+			      <h:outputLabel value="#{obj.descricao}"/>
+			   </h:column>
+			   <h:column>
+			      <f:facet name="header">Preço</f:facet>
+			      <h:outputLabel value="#{obj.preco}"/>
+			   </h:column>
+			   <h:column>
+			      <f:facet name="header">Console</f:facet>
+			      <h:outputLabel value="#{obj.console}"/>
+			   </h:column>
+			   <h:column>
+			      <f:facet name="header">Estoque</f:facet>
+			      <h:outputLabel value="#{obj.estoque}"/>
+			   </h:column>
+			   <h:column>
+			      <f:facet name="header">Ação</f:facet>
+			      <h:commandLink value="Editar" 
+			      		action="#{consultaJogosController.editar(obj)}"/>
+			   </h:column>		   
+		</h:dataTable>
+	</h:form>
+		</center>
+</ui:define>	
+</ui:composition>
+</html>

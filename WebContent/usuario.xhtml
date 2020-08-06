@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:h="http://xmlns.jcp.org/jsf/html">
-<h:head>
-	<title>Cadastro de Usuário</title>
-</h:head>
-<h:body>
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<ui:composition template="inicio.xhtml">
+<ui:define name="conteudo">
+<center>
 	<h:messages 
 		errorStyle="color:red" 
 		warnStyle="color:orange" 
 		infoStyle="color:green"
 		globalOnly="false"/>
 		
-	<h1>Crie sua Conta:</h1>
+	<h1>Cadastro de Usuário</h1>
 	<h:form>
 		<h:panelGrid columns="2">
 			<h:outputLabel value="Nome:" />
@@ -32,6 +33,9 @@
 									   type="localDate"/>
 				</h:inputText>
 				<h:message for="itDataNascimento" style="color:red"/>
+				
+
+						
 			</h:panelGroup>
 			<h:outputLabel value="Login:" />
 			<h:inputText value="#{usuarioController.entity.login}" />
@@ -49,13 +53,13 @@
 			<h:outputLabel value="E-mail:" />
 			<h:inputText value="#{usuarioController.entity.email}" />
 			
-			<h:outputLabel value="País/Região:" />
+			<h:outputLabel value="Tipo de Usuário:" />
 			<h:selectOneMenu 
-				value="#{usuarioController.entity.localRegiao}">
+				value="#{usuarioController.entity.tipoUsuario}">
 				<f:selectItems 
-					value="#{usuarioController.listaLocalRegiao}"
-							var="local" 
-							itemLabel="#{local.label}"/>
+					value="#{usuarioController.listaTipoUsuario}"
+							var="tipo" 
+							itemLabel="#{tipo.label}"/>
 			</h:selectOneMenu>
 		
 		</h:panelGrid>
@@ -103,8 +107,8 @@
 			      <h:outputLabel value="#{obj.email}"/>
 			   </h:column>	
 			   <h:column>
-			      <f:facet name="header">País/Região</f:facet>
-			      <h:outputLabel value="#{obj.localRegiao.label}"/>
+			      <f:facet name="header">Tipo de Usuário</f:facet>
+			      <h:outputLabel value="#{obj.tipoUsuario.label}"/>
 			   </h:column>				   
 			   <h:column>
 			      <f:facet name="header">Ação</f:facet>
@@ -113,5 +117,7 @@
 			   </h:column>		   
 		</h:dataTable>
 	</h:form>
-</h:body>
+	</center>
+</ui:define>
+</ui:composition>
 </html>
