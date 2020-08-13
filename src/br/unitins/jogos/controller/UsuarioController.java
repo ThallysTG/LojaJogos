@@ -8,7 +8,7 @@ import javax.inject.Named;
 
 import br.unitins.jogos.application.Util;
 import br.unitins.jogos.dao.UsuarioDAO;
-import br.unitins.jogos.model.LocalRegiao;
+import br.unitins.jogos.model.TipoUsuario;
 import br.unitins.jogos.model.Usuario;
 
 @Named
@@ -59,8 +59,8 @@ public class UsuarioController extends Controller<Usuario> implements Serializab
 		return true;
 	}
 
-	public LocalRegiao[] getListaLocalRegiao() {
-		return LocalRegiao.values();
+	public TipoUsuario[] getListaTipoUsuario() {
+		return TipoUsuario.values();
 	}
 
 }

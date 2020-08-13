@@ -10,6 +10,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import br.unitins.jogos.application.Session;
+import br.unitins.jogos.application.Util;
 import br.unitins.jogos.dao.VendaDAO;
 import br.unitins.jogos.model.Usuario;
 import br.unitins.jogos.model.Venda;
@@ -22,7 +23,11 @@ public class HistoricoVendaController implements Serializable {
 	
 	private List<Venda> listaVenda = null;
 	
-
+	/**
+	 * Este metodo retorna todas a vendas do usuario logado
+	 * 
+	 * @return List<Venda>
+	 */
 	public List<Venda> getListaVenda() {
 		if (listaVenda == null) {
 			VendaDAO dao = new VendaDAO();
@@ -34,13 +39,10 @@ public class HistoricoVendaController implements Serializable {
 		return listaVenda;
 	}
 	
-	public String detalhes(Venda venda) {
-		Flash flash = FacesContext.
-				getCurrentInstance().
-				getExternalContext().getFlash();
-		flash.put("detalheVenda", venda);
-		
-		return "detalhesvenda.xhtml?faces-redirect=true";
+	public void detalhes(Venda venda) {
+		Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
+		flash.put("vendaFlash", venda);
+		Util.redirect("/LojaJogos/faces/pages/detalhesvenda.xhtml");
 	}
 	
 }

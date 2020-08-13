@@ -4,7 +4,7 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-<ui:composition template="inicio.xhtml">
+<ui:composition template="../template.xhtml">
 <ui:define name="conteudo">
 <center>
 	<h:messages 
@@ -53,7 +53,7 @@
 			<h:outputLabel value="E-mail:" />
 			<h:inputText value="#{usuarioController.entity.email}" />
 			
-			<h:outputLabel value="Tipo de Usuário:" />
+			<h:outputLabel value="Tipo Usuario:" />
 			<h:selectOneMenu 
 				value="#{usuarioController.entity.tipoUsuario}">
 				<f:selectItems 
@@ -82,10 +82,7 @@
 	<h:form id="formDataTable">
 		<h:dataTable id="dataTable" value="#{usuarioController.listaUsuario}" 
 					 var="obj">
-			   <h:column>            
-			      <f:facet name="header">Id</f:facet>            
-			      <h:outputLabel value="#{obj.id}"/>
-			   </h:column>
+
 			   <h:column>
 			      <f:facet name="header">Nome</f:facet>
 			      <h:outputLabel value="#{obj.nome}"/>
@@ -107,8 +104,8 @@
 			      <h:outputLabel value="#{obj.email}"/>
 			   </h:column>	
 			   <h:column>
-			      <f:facet name="header">Tipo de Usuário</f:facet>
-			      <h:outputLabel value="#{obj.tipoUsuario.label}"/>
+  					<f:facet name="header">Tipo de Usuário</f:facet>
+			      	<h:outputLabel value="#{obj.tipoUsuario.label}"/>
 			   </h:column>				   
 			   <h:column>
 			      <f:facet name="header">Ação</f:facet>

@@ -23,7 +23,7 @@ public class Usuario extends Entity<Usuario> {
 	@NotEmpty(message = "O E-mail deve ser informado.")
 	private String email;
 	
-	private LocalRegiao localRegiao;
+	private TipoUsuario tipoUsuario;
 
 	public String getNome() {
 		return nome;
@@ -65,13 +65,12 @@ public class Usuario extends Entity<Usuario> {
 		this.email = email;
 	}
 
-	public LocalRegiao getLocalRegiao() {
-		return localRegiao;
+	public TipoUsuario getTipoUsuario() {
+		return tipoUsuario;
 	}
 
-	public void setLocalRegiao(LocalRegiao localRegiao) {
-		this.localRegiao = localRegiao;
+	public void setTipoUsuario(TipoUsuario tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
 	}
-
 
 }

@@ -29,22 +29,35 @@
 			<ui:insert name="menu">
 				<h1>Menu</h1>
 				<h:form>
-					<h:commandLink value="Login" action="login.xhtml?faces-redirect=true"/> <br/>
-					<h:commandLink value="Cadastro de Usuário" action="usuario.xhtml?faces-redirect=true"/> <br/>
-					<h:commandLink value="Cadastro de Jogos" action="consultajogos.xhtml?faces-redirect=true"/> <br/>
-					<h:commandLink value="Venda de Jogos" action="vendajogos.xhtml?faces-redirect=true"/> <br/>
-					<h:commandLink value="Carrinho" action="carrinho.xhtml?faces-redirect=true" /> <br/>
-					<h:commandLink value="Histórico de Venda" action="historico.xhtml?faces-redirect=true"/> <br/>
+					<h:commandLink value="Login" 
+						disabled="#{templateController.usuarioLogado != null}"
+						action="#{templateController.redirecionar('/LojaJogos/faces/login.xhtml')}" /> <br/>
+					<h:commandLink value="Consulta de Usuarios" 
+						disabled="#{templateController.usuarioLogado.tipoUsuario.id == 1}"
+						action="#{templateController.redirecionar('/LojaJogos/faces/pages/cadastrousuario.xhtml')}" /> <br/>
+					<h:commandLink value="Consulta de Jogos" 
+						disabled="#{templateController.usuarioLogado.tipoUsuario.id == 1}"
+						action="#{templateController.redirecionar('/LojaJogos/faces/pages/consultajogos.xhtml')}" /> <br/> 
+					<h:commandLink value="Venda Jogos"
+						action="#{templateController.redirecionar('/LojaJogos/faces/pages/vendajogos.xhtml')}" />
+					<br />
+					<h:commandLink
+						value="Carrinho (#{templateController.qtdItensCarrinho})"
+						action="#{templateController.redirecionar('/LojaJogos/faces/pages/carrinho.xhtml')}" />
+					<br />
+					<h:commandLink value="Histórico de Venda" 
+						action="#{templateController.redirecionar('/LojaJogos/faces/pages/historico.xhtml')}" />
+					 <br/>
 						
 				</h:form>
 			</ui:insert>
 		</div>
 		<div class="box content">
-			<br/>
+			<br />
 			<ui:insert name="conteudo">
-				<div align="center">
-					<h1>Bem vindo!</h1>
-				</div>
+				<center>
+					<h:outputLabel value="Seja Bem-vindo #{templateController.usuarioLogado.nome}" />
+				</center>
 			</ui:insert>
 		</div>
 		<div class="box footer" style="text-align: center;">

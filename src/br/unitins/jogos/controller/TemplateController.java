@@ -1,11 +1,14 @@
 package br.unitins.jogos.controller;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import br.unitins.jogos.application.Session;
+import br.unitins.jogos.application.Util;
+import br.unitins.jogos.model.ItemVenda;
 import br.unitins.jogos.model.Usuario;
 
 @Named
@@ -14,11 +17,20 @@ public class TemplateController implements Serializable {
 
 	private static final long serialVersionUID = -925765300233216226L;
 
-	private Usuario usuarioLogado = null;
+	Usuario usuarioLogado = null;
+
+	int qtdItensCarrinho;
+
+	public TemplateController() {
+		usuarioLogado = (Usuario) Session.getInstance().getAttribute("usuarioLogado");
+	}
+
+	public void encerrarSessao() {
+		Session.getInstance().invalidateSession();
+		Util.redirect("../faces/login.xhtml");
+	}
 
 	public Usuario getUsuarioLogado() {
-		if (usuarioLogado == null) // buscando o usuario da sessao
-			usuarioLogado = (Usuario) Session.getInstance().getAttribute("usuarioLogado");			
 		return usuarioLogado;
 	}
 
@@ -26,10 +38,16 @@ public class TemplateController implements Serializable {
 		this.usuarioLogado = usuarioLogado;
 	}
 
-	public String encerrarSessao() {
-		// encerrando a sessao
-		Session.getInstance().invalidateSession();
-		return "login2.xhtml?faces-redirect=true";
+	public int getQtdItensCarrinho() {
+		qtdItensCarrinho = 0;
+		List<ItemVenda> itens = (List<ItemVenda>) Session.getInstance().getAttribute("carrinho");
+		if (itens != null)
+			qtdItensCarrinho = itens.size();
+		return qtdItensCarrinho;
+
 	}
 
+	public void redirecionar(String pagina) {
+		Util.redirect(pagina);
+	}
 }

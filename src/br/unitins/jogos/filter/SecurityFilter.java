@@ -15,49 +15,49 @@ import javax.servlet.http.HttpSession;
 
 import br.unitins.jogos.model.Usuario;
 
-@WebFilter(filterName = "SecurityFilter", urlPatterns = {"/faces/*"})
+//@WebFilter("/*")
+@WebFilter(filterName = "SecurityFilter", urlPatterns = { "/faces/pages/*", "/faces/relatorio/*" })
 public class SecurityFilter implements Filter {
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 
-// 	 	Para desabilitar o filter, descomente as duas proximas linhas e comente o restante		
-		chain.doFilter(request, response);
-		return;
-		
-//		HttpServletRequest servletRequest = (HttpServletRequest) request;
-//		// imprime o endereco da pagina
-//		String endereco = servletRequest.getRequestURI();
-//		System.out.println(endereco);
-//		if (endereco.equals("/books/faces/login2.xhtml")) {
-//			chain.doFilter(request, response);
-//			return;
-//		}
-//		
-//		// retorna a sessao corrente (false - para nao criar uma nova sessao)
-//		HttpSession session = servletRequest.getSession(false);
-//		
-//		Usuario usuario = null;
-//		if (session != null)
-//			usuario = (Usuario) session.getAttribute("usuarioLogado");
-//		
-//		if (usuario == null) {
-//			((HttpServletResponse) response).sendRedirect("/books/faces/login2.xhtml");
-//		}  else {
-//			// nesse local podemos trabalhar as permissoes por pagina
-//
-//			// segue o fluxo 
-//			chain.doFilter(request, response);
-//			return;
-//		}
-		
+		HttpServletRequest servletRequest = (HttpServletRequest) request;
+		// imprime o endereco da pagina
+		String endereco = servletRequest.getRequestURI();
+		System.out.println(endereco);
+		if (endereco.equals("/Livraria/faces/login.xhtml")) {
+			chain.doFilter(request, response);
+			return;
+		}
+
+		HttpSession session = servletRequest.getSession(false);
+
+		Usuario usuario = null;
+		if (session != null)
+			usuario = (Usuario) session.getAttribute("usuarioLogado");
+
+		if (usuario == null) {
+			((HttpServletResponse) response).sendRedirect("/LojaJogos/faces/login.xhtml");
+		} else {
+			for (String pagina : usuario.getTipoUsuario().getPages()) {
+				if (endereco.contains(pagina)) {
+					// deixa a pagina ser concluida
+					chain.doFilter(request, response);
+					return;
+				}
+			}
+			((HttpServletResponse) response).sendRedirect("/LojaJogos/faces/acessonegado.xhtml");
+		}
 	}
-	
+
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
+		Filter.super.init(filterConfig);
 		System.out.println("SecurityFilter Iniciado.");
 	}
+
 
 	@Override
 	public void destroy() {

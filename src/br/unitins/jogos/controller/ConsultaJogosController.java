@@ -9,6 +9,7 @@ import javax.faces.context.Flash;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import br.unitins.jogos.application.Util;
 import br.unitins.jogos.dao.JogosDAO;
 import br.unitins.jogos.model.Jogos;
 
@@ -30,8 +31,8 @@ public class ConsultaJogosController implements Serializable{
 			listaJogos = dao.findByConsole(getFiltro());
 	}
 	
-	public String novoJogos() {
-		return "jogos.xhtml?faces-redirect=true";
+	public void novoJogos() {
+		Util.redirect("../pages/cadastrarjogos.xhtml");
 	}
 	
 	public String editar(Jogos jogos) {
@@ -42,7 +43,13 @@ public class ConsultaJogosController implements Serializable{
 						getExternalContext().getFlash();
 		
 		flash.put("flashJogos", jogos);
-		return "jogos.xhtml?faces-redirect=true";
+		return "../pages/cadastrarjogos.xhtml?faces-redirect=true";
+	}
+	
+	public void excluir(int id) {
+		JogosDAO dao = new JogosDAO();
+		dao.delete(id);
+		listaJogos = null;
 	}
 
 	public List<Jogos> getListaJogos() {

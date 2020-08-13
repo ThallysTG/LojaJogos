@@ -11,7 +11,7 @@ import java.util.List;
 
 import br.unitins.jogos.model.ItemVenda;
 import br.unitins.jogos.model.Jogos;
-import br.unitins.jogos.model.LocalRegiao;
+import br.unitins.jogos.model.TipoUsuario;
 import br.unitins.jogos.model.Usuario;
 import br.unitins.jogos.model.Venda;
 
@@ -153,7 +153,7 @@ public class VendaDAO extends DAO<Venda> {
 				venda.getUsuario().setLogin(rs.getString("login"));
 				venda.getUsuario().setSenha(rs.getString("senha"));
 				venda.getUsuario().setEmail(rs.getString("email"));
-				venda.getUsuario().setLocalRegiao(LocalRegiao.valueOf(rs.getInt("localregiao")));
+				venda.getUsuario().setTipoUsuario(TipoUsuario.valueOf(rs.getInt("tipousuario")));
 				Date data = rs.getDate("datanascimento");
 				venda.getUsuario().setDataNascimento(data == null? null : data.toLocalDate());
 				// e os itens de venda?!!?
@@ -210,7 +210,7 @@ public class VendaDAO extends DAO<Venda> {
 				venda.getUsuario().setLogin(rs.getString("login"));
 				venda.getUsuario().setSenha(rs.getString("senha"));
 				venda.getUsuario().setEmail(rs.getString("email"));
-				venda.getUsuario().setLocalRegiao(LocalRegiao.valueOf(rs.getInt("localregiao")));
+				venda.getUsuario().setTipoUsuario(TipoUsuario.valueOf(rs.getInt("tipousuario")));
 				Date data = rs.getDate("datanascimento");
 				venda.getUsuario().setDataNascimento(data == null? null : data.toLocalDate());
 				// e os itens de venda?!!?
@@ -269,7 +269,7 @@ public class VendaDAO extends DAO<Venda> {
 				venda.getUsuario().setLogin(rs.getString("login"));
 				venda.getUsuario().setSenha(rs.getString("senha"));
 				venda.getUsuario().setEmail(rs.getString("email"));
-				venda.getUsuario().setLocalRegiao(LocalRegiao.valueOf(rs.getInt("localregiao")));
+				venda.getUsuario().setTipoUsuario(TipoUsuario.valueOf(rs.getInt("tipousuario")));
 				Date data = rs.getDate("datanascimento");
 				venda.getUsuario().setDataNascimento(data == null? null : data.toLocalDate());
 			}

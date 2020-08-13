@@ -4,7 +4,7 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 	
-<ui:composition template="inicio.xhtml">
+<ui:composition template="../template.xhtml">
 <ui:define name="conteudo">
 <center>
 	<h:messages 
@@ -34,28 +34,35 @@
 	</h:form>
 	<h:form id="formDataTable">
 		<h:dataTable id="dataTable" value="#{consultaJogosController.listaJogos}" 
-					 var="obj">
-			   <h:column>
-			      <f:facet name="header">Descrição</f:facet>
-			      <h:outputLabel value="#{obj.descricao}"/>
-			   </h:column>
-			   <h:column>
-			      <f:facet name="header">Preço</f:facet>
-			      <h:outputLabel value="#{obj.preco}"/>
-			   </h:column>
-			   <h:column>
-			      <f:facet name="header">Console</f:facet>
-			      <h:outputLabel value="#{obj.console}"/>
-			   </h:column>
-			   <h:column>
-			      <f:facet name="header">Estoque</f:facet>
-			      <h:outputLabel value="#{obj.estoque}"/>
-			   </h:column>
-			   <h:column>
-			      <f:facet name="header">Ação</f:facet>
-			      <h:commandLink value="Editar" 
-			      		action="#{consultaJogosController.editar(obj)}"/>
-			   </h:column>		   
+					 var="obj" style="margin-top:60px;" class="table table-striped table-bordered">
+<h:column>
+						<f:facet name="header">Nome do Jogo</f:facet>
+						<h:commandLink value="#{obj.descricao}">
+							<f:ajax execute="@this" render="@form" />
+						</h:commandLink>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Console</f:facet>
+						<h:commandLink value="#{obj.console}"/>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Preço</f:facet>
+						<h:commandLink value="#{obj.preco}"/>
+					</h:column>
+					<h:column>
+						<f:facet name="header">Ações</f:facet>
+						<h:commandButton value="Editar"
+							actionListener="#{consultaJogosController.editar(obj.id)}"
+							class="btn btn-warning" />
+						<h:commandButton value="Excluir"
+							
+							actionListener="#{consultaJogosController.excluir(obj.id)}"
+							class="btn btn-danger">
+							<f:ajax execute="panelForm" render="@all" />
+						</h:commandButton>
+					</h:column>	   
 		</h:dataTable>
 	</h:form>
 		</center>

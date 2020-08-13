@@ -10,9 +10,9 @@ import java.util.List;
 import br.unitins.jogos.model.TipoUsuario;
 import br.unitins.jogos.model.Usuario;
 
-public class UsuarioDAO extends DAO<Usuario> {
+public class UsuarioLoginDAO extends DAO<Usuario> {
 	
-	public boolean create (Usuario usuario) {
+	public boolean create (Usuario obj) {
 		
 		int num = 1;
 		
@@ -28,12 +28,12 @@ public class UsuarioDAO extends DAO<Usuario> {
 		PreparedStatement stat = null;
 		try {
 			stat = conn.prepareStatement(sql.toString());
-			stat.setString(1, usuario.getNome());
-			stat.setString(2, usuario.getLogin());
-			stat.setString(3, usuario.getSenha());
-			stat.setDate(4, java.sql.Date.valueOf(usuario.getDataNascimento()));
-			stat.setString(5, usuario.getEmail());
-			stat.setInt(6, usuario.getTipoUsuario().getId());
+			stat.setString(1, obj.getNome());
+			stat.setString(2, obj.getLogin());
+			stat.setString(3, obj.getSenha());
+			stat.setDate(4, java.sql.Date.valueOf(obj.getDataNascimento()));
+			stat.setString(5, obj.getEmail());
+			stat.setInt(6, num);
 			
 			stat.execute();
 			
@@ -53,118 +53,7 @@ public class UsuarioDAO extends DAO<Usuario> {
 		return retorno;
 	}
 
-	public boolean update(Usuario usuario) {
-		boolean retorno = false;
-		Connection conn = getConnection();
-		
-		StringBuffer sql = new StringBuffer();
-		sql.append("UPDATE usuario ");
-		sql.append("	SET nome=?, login=?, senha=?, datanascimento=?, email=?, tipousuario=? ");
-		sql.append("WHERE ");
-		sql.append("	id = ? ");
-		
-		PreparedStatement stat = null;
-		try {
-			stat = conn.prepareStatement(sql.toString());
-			stat.setString(1, usuario.getNome());
-			stat.setString(2, usuario.getLogin());
-			stat.setString(3, usuario.getSenha());
-			stat.setDate(4, java.sql.Date.valueOf(usuario.getDataNascimento()));
-			stat.setString(5, usuario.getEmail());
-			stat.setInt(6, usuario.getTipoUsuario().getId());
-			stat.setInt(7, usuario.getId());
-			
-			stat.execute();
-			
-			conn.commit();
-
-			System.out.println("Alteração realizada com sucesso.");
-			
-			retorno = true;
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			rollback(conn);
-		} finally {
-			closeStatement(stat);
-			closeConnection(conn);
-		}
-		return retorno;		
-		
-	}
-
-	public boolean delete(int id) {
-		boolean retorno = false;
-		Connection conn = getConnection();
-		
-		StringBuffer sql = new StringBuffer();
-		sql.append("DELETE FROM usuario ");
-		sql.append("WHERE ");
-		sql.append("	id = ? ");
-		
-		PreparedStatement stat = null;
-		try {
-			stat = conn.prepareStatement(sql.toString());
-			stat.setInt(1, id);
-			
-			stat.execute();
-			
-			conn.commit();
-
-			System.out.println("Remoção realizada com sucesso.");
-			
-			retorno = true;
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			rollback(conn);
-		} finally {
-			closeStatement(stat);
-			closeConnection(conn);
-		}
-		return retorno;
-	}
-
-	public List<Usuario> findAll() {
-		List<Usuario> listaUsuario = new ArrayList<Usuario>();
-		Connection conn = getConnection();
-		
-		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT ");
-		sql.append(" 	id, nome, login, senha, datanascimento, email, tipousuario ");
-		sql.append("FROM ");
-		sql.append("	usuario ");
-		
-		PreparedStatement stat = null;
-		try {
-			stat = conn.prepareStatement(sql.toString());
-			
-			ResultSet rs = stat.executeQuery();
-			
-			Usuario usuario = null;
-			
-			while(rs.next()) {
-				usuario = new Usuario();
-				usuario.setId(rs.getInt("id"));
-				usuario.setNome(rs.getString("nome"));
-				usuario.setLogin(rs.getString("login"));
-				usuario.setSenha(rs.getString("senha"));
-				usuario.setDataNascimento(rs.getDate("datanascimento").toLocalDate());
-				usuario.setEmail(rs.getString("email"));
-				usuario.setTipoUsuario(TipoUsuario.valueOf(rs.getInt("tipousuario")));
-				
-				listaUsuario.add(usuario);
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-			rollback(conn);
-		} finally {
-			closeStatement(stat);
-			closeConnection(conn);
-		}
-		return listaUsuario;
-	}
+	
 	
 	public Usuario findById(int id) {
 		Usuario usuario = null;
@@ -247,6 +136,30 @@ public class UsuarioDAO extends DAO<Usuario> {
 			closeConnection(conn);
 		}
 		return usuario;
+	}
+
+
+
+	@Override
+	public boolean update(Usuario entity) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+
+	@Override
+	public boolean delete(int id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+
+	@Override
+	public List<Usuario> findAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

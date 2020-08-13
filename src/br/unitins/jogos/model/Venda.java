@@ -38,6 +38,10 @@ public class Venda extends Entity<Venda> {
 	}
 
 	public Float getTotalVenda() {
+		if (listaItemVenda != null)
+			for (ItemVenda itemVenda : listaItemVenda)
+				totalVenda += itemVenda.getValor();
+
 		return totalVenda;
 	}
 

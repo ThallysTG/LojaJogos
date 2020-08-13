@@ -17,7 +17,7 @@ import br.unitins.jogos.model.Jogos;
 @ViewScoped
 public class VendaJogosController implements Serializable {
 
-	private static final long serialVersionUID = -8413311224021825448L;
+	private static final long serialVersionUID = -3711196463081749135L;
 
 	private String descricao;
 	private List<Jogos> listaJogos = null;
@@ -56,7 +56,7 @@ public class VendaJogosController implements Serializable {
 		
 	}
 
-	public List<Jogos> getListaJogoso() {
+	public List<Jogos> getListaJogos() {
 		if (listaJogos == null) {
 			JogosDAO dao = new JogosDAO();
 			listaJogos = dao.findByDescricao(getDescricao());
@@ -73,4 +73,5 @@ public class VendaJogosController implements Serializable {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+	
 }

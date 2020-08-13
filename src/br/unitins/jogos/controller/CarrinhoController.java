@@ -59,7 +59,7 @@ public class CarrinhoController implements Serializable{
 	public void finalizar() {
 		Usuario usuario = (Usuario)Session.getInstance().getAttribute("usuarioLogado");
 		if (usuario == null) {
-			Util.addWarningMessage("Eh preciso estar logado para realizar uma venda. Faca o Login!!");
+			Util.addWarningMessage("É preciso estar logado para realizar uma venda. Faca o Login!");
 			return;
 		}
 		// montar a venda
@@ -75,7 +75,7 @@ public class CarrinhoController implements Serializable{
 			// limpando o carrinho
 			Session.getInstance().setAttribute("carrinho", null);
 		} else {
-			Util.addErrorMessage("Erro ao finalizar a Venda.");
+			Util.addErrorMessage("Erro ao finalizar a venda.");
 		}
 		
 	}
